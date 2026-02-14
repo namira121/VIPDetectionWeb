@@ -1,0 +1,14 @@
+:root {
+  --deep-navy: #0F1C2E;
+  --warm-beige: #E8DFD2;
+  --soft-gold: #C6A75E;
+  --muted-blue: #2E4057;
+  --off-white: #F5F2EC;
+}
+
+body {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  background-color: var(--deep-navy);
+  color: var(--off-white);
+}
