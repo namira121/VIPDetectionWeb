@@ -25,12 +25,13 @@
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(15, 28, 46, 0.75);
+  background: rgba(15, 28, 46, 0.50);
   z-index: -1;
 }
 
 /* NAVBAR BASE */
 /* NAVBAR CLEAN - NO BOX */
+/* NAVBAR BASE */
 .navbar {
   position: fixed;
   top: 0;
@@ -39,10 +40,67 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-  background: transparent;   
-  backdrop-filter: none;     
-  border: none;             
-  box-shadow: none;
+  /* Pastikan benar-benar transparan di awal */
+  background: transparent !important; 
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hilangkan background saat discroll jika ingin benar-benar mirip gambar Altai, 
+   atau tipiskan saja warnanya */
+.navbar.scrolled {
+  background: rgba(15, 28, 46, 0.4) !important; /* Sangat transparan */
+  backdrop-filter: blur(8px);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Jarak antar link agak lebar biar elegan */
+}
+
+/* EFEK UNDERSCORE ANIMATION */
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  position: relative; /* Wajib ada untuk posisi garis */
+  padding-bottom: 5px;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+/* Membuat garis underscore (keadaan awal) */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0; /* Mulai dari lebar 0 */
+  height: 2px;
+  background-color: var(--soft-gold); /* Warna garis emas */
+  transition: width 0.3s ease; /* Animasi melebar */
+}
+
+/* Saat di-hover atau aktif, garis melebar */
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Khusus untuk Register yang ada outline-nya */
+.gold-outline {
+  border: 1px solid var(--soft-gold);
+  padding: 6px 18px !important;
+  border-radius: 20px;
+  transition: all 0.3s ease !important;
+}
+
+.gold-outline:hover {
+  background: var(--soft-gold);
+  color: var(--deep-navy) !important;
+}
+
+/* Agar garis bawah tidak muncul di tombol register yang sudah punya border */
+.gold-outline::after {
+  display: none;
 }
 
 
@@ -67,9 +125,7 @@
   color: var(--soft-gold);
 }
 
-.nav-links a {
-  color: white;
-}
+
 
 .nav-links {
   display: flex;
@@ -78,12 +134,7 @@
 }
 
 
-.gold-outline {
-  border: 1px solid var(--soft-gold);
-  padding: 4px 14px;  /* lebih kecil */
-  border-radius: 16px;
-  font-size: 13px;
-}
+
 
 /* HERO */
 .hero {
@@ -130,42 +181,83 @@
 }
 
 /* PACKAGE SECTION */
-.packages-section {
-  background: var(--deep-navy);
-  padding: 120px 80px;
-  text-align: center;
-}
-
-.packages-section h2 {
-  color: var(--soft-gold);
-  font-size: 40px;
-  margin-bottom: 60px;
-}
-
 .package-grid {
   display: flex;
   justify-content: center;
   gap: 40px;
+  flex-wrap: wrap;
 }
 
 .package-card {
   background: var(--warm-beige);
   color: var(--deep-navy);
-  padding: 40px;
-  border-radius: 20px;
-  width: 280px;
-  transition: 0.3s;
+  padding: 50px 40px;
+  border-radius: 24px;
+  width: 320px;
+  text-align: center;
+  transition: 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .package-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-12px);
 }
 
-.package-card.premium {
-  border: 2px solid var(--soft-gold);
+.package-card h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.package-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 25px 0;
+  text-align: left;
+}
+
+.package-card ul li {
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.package-card ul li::before {
+  content: "•";
+  color: var(--soft-gold);
+  position: absolute;
+  left: 0;
 }
 
 .price {
+  font-size: 22px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
+/* PRO Highlight */
+.package-card.pro {
+  border: 2px solid var(--soft-gold);
+}
+
+/* PREMIUM Highlight */
+.package-card.premium {
+  border: 2px solid var(--soft-gold);
+  background: linear-gradient(145deg, #e8dfd2, #f5f2ec);
+}
+
+/* BUTTON */
+.package-btn {
+  background: var(--deep-navy);
+  color: var(--off-white);
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.package-btn:hover {
+  background: var(--soft-gold);
+  color: var(--deep-navy);
+}
+

@@ -74,19 +74,55 @@ function Home() {
         <h2>Our Packages</h2>
 
         <div className="package-grid">
+
+          {/* BASIC */}
           <div className="package-card">
             <h3>Basic</h3>
-            <p>Up to 10 VIP Guests</p>
             <p className="price">Rp 1.500.000</p>
+
+            <ul>
+              <li>Alat-alat deteksi</li>
+              <li>Aplikasi untuk deteksi</li>
+              <li>Jumlah VIP 10–20 orang</li>
+              <li>Durasi 3–4 jam</li>
+            </ul>
+
+            <button className="package-btn">Choose Basic</button>
           </div>
 
-          <div className="package-card premium">
+          {/* PRO */}
+          <div className="package-card pro">
             <h3>Pro</h3>
-            <p>Up to 30 VIP Guests</p>
             <p className="price">Rp 3.000.000</p>
+
+            <ul>
+              <li>Alat-alat deteksi</li>
+              <li>Aplikasi untuk deteksi</li>
+              <li>Jumlah VIP 30–50 orang</li>
+              <li>Durasi 5–8 jam</li>
+            </ul>
+
+            <button className="package-btn">Choose Pro</button>
           </div>
+
+          {/* PREMIUM */}
+          <div className="package-card premium">
+            <h3>Premium</h3>
+            <p className="price">Rp 4.500.000</p>
+
+            <ul>
+              <li>Alat-alat deteksi</li>
+              <li>Aplikasi untuk deteksi</li>
+              <li>Jumlah VIP 60–100 orang</li>
+              <li>Durasi 9–12 jam</li>
+            </ul>
+
+            <button className="package-btn gold-btn">Choose Premium</button>
+          </div>
+
         </div>
       </div>
+
 
     </div>
   )
