@@ -124,18 +124,11 @@
 .logo {
   color: var(--soft-gold);
 }
-
-
-
 .nav-links {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
-
-
-
 /* HERO */
 .hero {
   height: 100vh;
@@ -261,3 +254,48 @@
   color: var(--deep-navy);
 }
 
+.dashboard-container {
+  min-height: 100vh;
+  background: var(--deep-navy);
+  color: var(--off-white);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 60px;
+  background: var(--muted-blue);
+}
+
+.navbar h2 {
+  color: var(--soft-gold);
+}
+
+.nav-links a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: var(--off-white);
+}
+
+.nav-links button {
+  background: var(--soft-gold);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: var(--deep-navy);
+  font-weight: bold;
+}
+
+.dashboard-content {
+  padding: 80px;
+}
+
+.dashboard-card {
+  background: var(--warm-beige);
+  color: var(--deep-navy);
+  padding: 40px;
+  border-radius: 20px;
+  width: 500px;
+}

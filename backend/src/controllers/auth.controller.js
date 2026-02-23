@@ -1,16 +1,44 @@
-import { loginAdmin } from "../services/auth.service.js"
+import db from "../config/db.js"
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
-export const adminLogin = async (req, res) => {
+export const login = async (req, res) => {
+  const { email, password } = req.body
+
   try {
-    const { email, password } = req.body
+    const [rows] = await db.query(
+      "SELECT * FROM users WHERE email = ?",
+      [email]
+    )
 
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email & password required" })
+    if (rows.length === 0) {
+      return res.status(400).json({ message: "Email tidak ditemukan" })
     }
 
-    const result = await loginAdmin(email, password)
-    res.json(result)
+    const user = rows[0]
+
+    const validPassword = await bcrypt.compare(
+      password,
+      user.password
+    )
+
+    if (!validPassword) {
+      return res.status(400).json({ message: "Password salah" })
+    }
+
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    )
+
+    res.json({
+      token,
+      role: user.role
+    })
+
   } catch (error) {
-    res.status(401).json({ message: error.message })
+    console.error(error)
+    res.status(500).json({ message: "Server error" })
   }
 }

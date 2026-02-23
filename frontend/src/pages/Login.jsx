@@ -11,21 +11,17 @@ function Login() {
     e.preventDefault()
 
     try {
-      let res
+      const res = await axios.post(
+        "http://localhost:3000/auth/login",
+        { email, password }
+      )
 
-      if (email === "admin@vip.com") {
-        res = await axios.post(
-          "http://localhost:3000/auth/admin/login",
-          { email, password }
-        )
-        localStorage.setItem("token", res.data.token)
+      localStorage.setItem("token", res.data.token)
+      localStorage.setItem("role", res.data.role)
+
+      if (res.data.role === "admin") {
         navigate("/admin")
       } else {
-        res = await axios.post(
-          "http://localhost:3000/auth/customer/login",
-          { email, password }
-        )
-        localStorage.setItem("token", res.data.token)
         navigate("/customer")
       }
 
@@ -33,6 +29,7 @@ function Login() {
       alert(err.response?.data?.message || "Login gagal")
     }
   }
+
 
   return (
     <div>
