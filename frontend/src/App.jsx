@@ -6,7 +6,14 @@ import CustomerDashboard from "./pages/CustomerDashboard"
 import AdminDashboard from "./pages/AdminDashboard"
 import OrderPage from "./pages/OrderPage"
 import MyOrdersPage from "./pages/MyOrdersPage"
-
+import PaymentPage from "./pages/PaymentPage"  
+import AdminOrdersPage from "./pages/AdminOrdersPage"
+import UploadVipPage from "./pages/UploadVipPage"
+import VipListPage from "./pages/VipListPage"
+import BarcodePage from "./pages/BarcodePage"
+import AdminCustomersPage from "./pages/AdminCustomersPage"
+import AdminVipGuestsPage from "./pages/AdminVipGuestsPage"
+import AdminReportsPage from "./pages/AdminReportsPage"
 
 function App() {
   return (
@@ -19,6 +26,14 @@ function App() {
         <Route path="/order" element={<OrderPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/my-orders" element={<MyOrdersPage />} />
+        <Route path="/payment/:orderId" element={<PaymentPage />} />
+        <Route path="/admin/orders" element={<AdminOrdersPage />} /> 
+        <Route path="/upload-vip/:orderId" element={<UploadVipPage />} />
+        <Route path="/vip-list/:orderId" element={<VipListPage />} />
+        <Route path="/barcode/:orderId" element={<BarcodePage />} />
+        <Route path="/admin/customers" element={<AdminCustomersPage />} />
+        <Route path="/admin/vip-guests" element={<AdminVipGuestsPage />} />
+        <Route path="/admin/reports" element={<AdminReportsPage />} />
       </Routes>
     </BrowserRouter>
   )

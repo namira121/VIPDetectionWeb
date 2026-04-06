@@ -15,14 +15,10 @@ export const createPayment = async (customerId, orderId, proofPath) => {
     order_id: order.id,
     amount: order.total_amount,
     payment_method: "transfer",
-    payment_status: "success",
+    payment_status: "pending",  // ← ubah
     proof_path: proofPath,
     paid_at: new Date(),
   })
-
-  // update order langsung paid
-  order.status = "paid"
-  await order.save()
 
   return payment
 }

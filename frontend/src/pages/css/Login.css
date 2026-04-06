@@ -1,0 +1,94 @@
+:root {
+  --deep-navy: #0F1C2E;
+  --warm-beige: #E8DFD2;
+  --soft-gold: #C6A75E;
+  --muted-blue: #2E4057;
+  --off-white: #F5F2EC;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--deep-navy); /* Background utama gelap */
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+.login-card {
+  background-color: var(--off-white); /* Kartu yang sedikit pecah putihnya agar nyaman di mata */
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  border-top: 5px solid var(--soft-gold); /* Aksen emas di bagian atas */
+}
+
+.login-card h2 {
+  margin-bottom: 10px;
+  color: var(--deep-navy);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.login-card p {
+  color: var(--muted-blue);
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+/* Input Styles */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--warm-beige);
+  background-color: white;
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--deep-navy);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--soft-gold); /* Fokus berubah jadi emas */
+  box-shadow: 0 0 8px rgba(198, 167, 94, 0.2);
+}
+
+/* Tombol Login */
+.login-button {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--muted-blue);
+  color: var(--off-white);
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.login-button:hover {
+  background-color: var(--soft-gold);
+  color: var(--deep-navy); /* Kontras saat di-hover */
+  transform: translateY(-2px);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+/* Placeholder color */
+::placeholder {
+  color: #a0aec0;
+}

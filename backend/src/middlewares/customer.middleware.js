@@ -1,27 +1,19 @@
 import jwt from "jsonwebtoken"
 
 export const authCustomer = (req, res, next) => {
-  const header = req.headers.authorization
+  const token = req.headers.authorization?.split(" ")[1]
 
-  if (!header) {
-    return res.status(401).json({ message: "No token" })
-  }
-
-  const token = header.split(" ")[1]
   if (!token) {
-    return res.status(401).json({ message: "Invalid token format" })
+    return res.status(401).json({ message: "Token tidak ada" })
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-    if (decoded.type !== "customer") {
-      return res.status(403).json({ message: "Customer only" })
-    }
-
-    req.customer = decoded // { id, type }
+    req.user = decoded
     next()
+
   } catch (error) {
-    return res.status(401).json({ message: "Invalid token" })
+    return res.status(401).json({ message: "Token tidak valid" })
   }
 }

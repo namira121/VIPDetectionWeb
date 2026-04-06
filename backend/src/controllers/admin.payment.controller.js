@@ -4,7 +4,7 @@ export const verifyPaymentController = async (req, res) => {
   try {
     const { status } = req.body
 
-    if (!["success", "failed"].includes(status)) {
+    if (!["approved", "failed"].includes(status)) {  // ← ganti
       return res.status(400).json({ message: "Invalid status" })
     }
 

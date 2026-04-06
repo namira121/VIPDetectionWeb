@@ -173,85 +173,172 @@
   50% { transform: translateY(10px); }
 }
 
-/* PACKAGE SECTION */
+/* --- PACKAGE SECTION IMPROVEMENTS --- */
+.packages-section {
+  padding: 100px 20px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  font-size: 42px;
+  color: var(--soft-gold);
+  margin-bottom: 60px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
 .package-grid {
   display: flex;
   justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+  max-width: 1200px;
 }
 
 .package-card {
-  background: var(--warm-beige);
+  background: var(--off-white);
   color: var(--deep-navy);
-  padding: 50px 40px;
-  border-radius: 24px;
+  padding: 40px;
+  border-radius: 20px;
   width: 320px;
   text-align: center;
-  transition: 0.4s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 500px;
+}
+
+/* Make Pro (Featured) card stand out */
+.package-card.featured {
+  background: var(--warm-beige);
+  transform: scale(1.05);
+  border: 2px solid var(--soft-gold);
+  z-index: 2;
 }
 
 .package-card:hover {
-  transform: translateY(-12px);
+  transform: translateY(-20px) scale(1.02);
 }
 
-.package-card h3 {
-  font-size: 24px;
-  margin-bottom: 15px;
+.card-header h3 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-family: 'Playfair Display', serif; /* Atau font elegant lainnya */
+}
+
+.badge {
+  background: var(--soft-gold);
+  color: var(--deep-navy);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--muted-blue);
+  margin-bottom: 20px;
 }
 
 .package-card ul {
   list-style: none;
   padding: 0;
-  margin: 25px 0;
+  margin: 30px 0;
   text-align: left;
+  flex-grow: 1;
 }
 
 .package-card ul li {
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  padding-left: 25px;
   position: relative;
-  padding-left: 20px;
 }
 
 .package-card ul li::before {
-  content: "•";
+  content: "✓";
   color: var(--soft-gold);
+  font-weight: bold;
   position: absolute;
   left: 0;
 }
 
-.price {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-/* PRO Highlight */
-.package-card.pro {
-  border: 2px solid var(--soft-gold);
-}
-
-/* PREMIUM Highlight */
-.package-card.premium {
-  border: 2px solid var(--soft-gold);
-  background: linear-gradient(145deg, #e8dfd2, #f5f2ec);
-}
-
-/* BUTTON */
 .package-btn {
-  background: var(--deep-navy);
-  color: var(--off-white);
-  padding: 12px 28px;
-  border-radius: 30px;
-  border: none;
+  background: transparent;
+  color: var(--deep-navy);
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid var(--deep-navy);
+  font-weight: bold;
   cursor: pointer;
   transition: 0.3s ease;
+  width: 100%;
+}
+
+.gold-fill {
+  background: var(--deep-navy) !important;
+  color: white !important;
+  border: none;
 }
 
 .package-btn:hover {
-  background: var(--soft-gold);
-  color: var(--deep-navy);
+  background: var(--soft-gold) !important;
+  border-color: var(--soft-gold);
+  color: var(--deep-navy) !important;
+}
+
+/* --- FOOTER SECTION --- */
+.footer {
+  background: rgba(15, 28, 46, 0.95);
+  border-top: 1px solid var(--soft-gold);
+  padding: 80px 60px 20px;
+  margin-top: 100px;
+  color: var(--off-white);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 100px;
+  margin-bottom: 60px;
+}
+
+.footer-info p {
+  margin-top: 20px;
+  line-height: 1.6;
+  opacity: 0.8;
+  max-width: 400px;
+}
+
+.footer-links h4 {
+  color: var(--soft-gold);
+  margin-bottom: 20px;
+}
+
+.footer-links p {
+  margin-bottom: 10px;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(232, 223, 210, 0.1);
+  font-size: 13px;
+  opacity: 0.6;
 }
 
 .dashboard-container {

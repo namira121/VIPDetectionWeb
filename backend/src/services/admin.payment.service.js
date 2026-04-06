@@ -6,10 +6,10 @@ export const verifyPayment = async (paymentId, status) => {
   if (!payment) throw new Error("Payment not found")
 
   payment.payment_status = status
-  payment.paid_at = status === "success" ? new Date() : null
+  payment.paid_at = status === "approved" ? new Date() : null  // ← ganti success → approved
   await payment.save()
 
-  if (status === "success") {
+  if (status === "approved") {  // ← ganti success → approved
     const order = await Order.findByPk(payment.order_id)
     order.status = "paid"
     await order.save()

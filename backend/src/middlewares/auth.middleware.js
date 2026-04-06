@@ -1,13 +1,14 @@
 import jwt from "jsonwebtoken"
 
-export const authAdmin = (req, res, next) => {
+export const auth = (req, res, next) => {
   const header = req.headers.authorization
 
   if (!header) {
-    return res.status(401).json({ message: "No token" })
+    return res.status(401).json({ message: "No token provided" })
   }
 
   const token = header.split(" ")[1]
+
   if (!token) {
     return res.status(401).json({ message: "Invalid token format" })
   }
@@ -15,12 +16,9 @@ export const authAdmin = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-    if (decoded.type !== "admin") {
-      return res.status(403).json({ message: "Admin only" })
-    }
-
-    req.admin = decoded // { id, type }
+    req.user = decoded   // { id, role }
     next()
+
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" })
   }

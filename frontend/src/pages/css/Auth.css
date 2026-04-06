@@ -1,0 +1,93 @@
+:root {
+  --deep-navy: #0F1C2E;
+  --warm-beige: #E8DFD2;
+  --soft-gold: #C6A75E;
+  --muted-blue: #2E4057;
+  --off-white: #F5F2EC;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--deep-navy);
+  font-family: 'Poppins', sans-serif;
+}
+
+.auth-card {
+  background-color: var(--off-white);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  border-bottom: 5px solid var(--soft-gold); /* Aksen emas di bawah */
+}
+
+.auth-card h2 {
+  color: var(--deep-navy);
+  margin-bottom: 8px;
+  font-size: 26px;
+}
+
+.auth-card p {
+  color: var(--muted-blue);
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid var(--warm-beige);
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--soft-gold);
+  box-shadow: 0 0 5px rgba(198, 167, 94, 0.3);
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--muted-blue);
+  color: var(--off-white);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.auth-button:hover {
+  background-color: var(--soft-gold);
+  color: var(--deep-navy);
+}
+
+.auth-footer {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--muted-blue);
+}
+
+.auth-footer a {
+  color: var(--soft-gold);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}

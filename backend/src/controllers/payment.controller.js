@@ -13,7 +13,7 @@ export const createPaymentController = async (req, res) => {
     }
 
     const payment = await createPayment(
-      req.customer.id,
+      req.user.id,
       order_id,
       req.file.path
     )

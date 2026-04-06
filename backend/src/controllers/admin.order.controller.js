@@ -1,6 +1,7 @@
 import {
   getAllOrders,
   updateOrderStatus,
+  deleteOrder
 } from "../services/admin.order.service.js"
 
 export const getAllOrdersController = async (req, res) => {
@@ -8,6 +9,7 @@ export const getAllOrdersController = async (req, res) => {
     const orders = await getAllOrders()
     res.json(orders)
   } catch (error) {
+    console.error("ERROR getAllOrders:", error)  // ← tambah ini
     res.status(500).json({ message: error.message })
   }
 }
@@ -23,6 +25,16 @@ export const updateOrderStatusController = async (req, res) => {
 
     const order = await updateOrderStatus(id, status)
     res.json(order)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
+
+export const deleteOrderController = async (req, res) => {
+  try {
+    const { id } = req.params
+    await deleteOrder(id)
+    res.json({ message: "Order berhasil dihapus" })
   } catch (error) {
     res.status(400).json({ message: error.message })
   }

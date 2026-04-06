@@ -1,3 +1,4 @@
+import "./css/Login.css"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -31,26 +32,40 @@ function Login() {
   }
 
 
+  // ... (import tetap sama)
+
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit">Login</button>
-      </form>
+    <div className="login-container">
+      <div className="login-card">
+        <h2>Sign In</h2>
+        <p>Access your dashboard with your credentials</p>
+        
+        <form onSubmit={handleLogin}>
+          <div className="input-group">
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div className="input-group">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          
+          <button type="submit" className="login-button">
+            LOGIN
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

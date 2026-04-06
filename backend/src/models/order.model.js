@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize"
 import { sequelize } from "../config/db.js"
 
+
 const Order = sequelize.define(
   "Order",
   {
@@ -61,5 +62,7 @@ const Order = sequelize.define(
     createdAt: "created_at",
   }
 )
+
+
 
 export default Order

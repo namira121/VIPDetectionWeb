@@ -26,8 +26,8 @@ const Payment = sequelize.define(
     },
 
     payment_status: {
-      type: DataTypes.ENUM("success"),
-      defaultValue: "success",
+      type: DataTypes.ENUM("pending", "approved", "failed"),
+      defaultValue: "pending",  
     },
 
     proof_path: {

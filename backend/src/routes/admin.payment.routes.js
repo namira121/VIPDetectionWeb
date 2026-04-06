@@ -1,6 +1,6 @@
 import express from "express"
 import { verifyPaymentController } from "../controllers/admin.payment.controller.js"
-import { authAdmin } from "../middlewares/auth.middleware.js"
+import { authAdmin } from "../middlewares/admin.middleware.js"
 
 const router = express.Router()
 
