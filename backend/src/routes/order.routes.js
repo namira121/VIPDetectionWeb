@@ -6,12 +6,14 @@ import {
   cancelOrderController,
   getOrderByIdPublicController,
 } from "../controllers/order.controller.js"
+import { getDashboard } from "../controllers/dashboard.controller.js"
 import { authCustomer } from "../middlewares/customer.middleware.js"
 
 const router = express.Router()
 
 router.post("/", authCustomer, createOrderController)
 router.get("/my", authCustomer, getMyOrdersController)
+router.get("/dashboard-stats", authCustomer, getDashboard)  // ← harus SEBELUM /:id
 router.get("/:id", authCustomer, getOrderByIdController)
 router.patch("/:id/cancel", authCustomer, cancelOrderController)
 router.get("/:id/public", getOrderByIdPublicController)

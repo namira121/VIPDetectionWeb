@@ -7,5 +7,6 @@ import VipGuest from "./vipGuest.model.js"
 Order.belongsTo(Package, { foreignKey: "package_id" })
 Order.belongsTo(Customer, { foreignKey: "customer_id" })
 Order.hasOne(Payment, { foreignKey: "order_id" })
+Order.hasMany(VipGuest, { foreignKey: "order_id" })   // ← tambah ini
 VipGuest.belongsTo(Order, { foreignKey: "order_id" })
 Payment.belongsTo(Order, { foreignKey: "order_id" })

@@ -12,8 +12,8 @@ import adminPaymentRoutes from "./routes/admin.payment.routes.js"
 import adminCustomerRoutes from "./routes/admin.customer.routes.js"
 import adminVipRoutes from "./routes/admin.vip.routes.js"
 import adminReportRoutes from "./routes/admin.report.routes.js"
-import path from "path"
 import vipRoutes from "./routes/vip.routes.js"
+import path from "path"
 
 const app = express()
 
@@ -33,7 +33,6 @@ app.use("/vip", vipRoutes)
 app.use("/admin", adminCustomerRoutes)
 app.use("/admin", adminVipRoutes)
 app.use("/admin", adminReportRoutes)
-
 
 app.get("/health", (req, res) => {
   res.json({ status: "ok" })
