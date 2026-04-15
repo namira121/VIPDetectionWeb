@@ -220,7 +220,7 @@ export default function BarcodePage() {
           download="VIP-Detection.apk"
           style={styles.btnPrimary}
         >
-          Download APK Android
+          Download APK 
         </a>
 
         <button
