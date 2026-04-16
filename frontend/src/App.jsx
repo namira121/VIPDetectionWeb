@@ -13,6 +13,7 @@ import VipListPage from "./pages/VipListPage"
 import BarcodePage from "./pages/BarcodePage"
 import AdminCustomersPage from "./pages/AdminCustomersPage"
 import AdminVipGuestsPage from "./pages/AdminVipGuestsPage"
+import AdminPackagesPage from "./pages/AdminPackagesPage"
 import AdminReportsPage from "./pages/AdminReportsPage"
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/barcode/:orderId" element={<BarcodePage />} />
         <Route path="/admin/customers" element={<AdminCustomersPage />} />
         <Route path="/admin/vip-guests" element={<AdminVipGuestsPage />} />
+        <Route path="/admin/packages" element={<AdminPackagesPage />} />
         <Route path="/admin/reports" element={<AdminReportsPage />} />
       </Routes>
     </BrowserRouter>

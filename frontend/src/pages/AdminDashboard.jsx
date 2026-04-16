@@ -110,6 +110,7 @@ function AdminDashboard() {
             { label: "Orders", path: "/admin/orders" },
             { label: "Customers", path: "/admin/customers" },
             { label: "VIP Guests", path: "/admin/vip-guests" },
+            { label: "Packages", path: "/admin/packages" },
             { label: "Reports", path: "/admin/reports" },
           ].map((item) => {
             const isActive = window.location.pathname === item.path

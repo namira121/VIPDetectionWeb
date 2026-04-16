@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import axios from "axios"
 
 function AdminOrdersPage() {
@@ -8,9 +8,7 @@ function AdminOrdersPage() {
   const [loadingAction, setLoadingAction] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    fetchOrders()
-  }, [])
+  useEffect(() => { fetchOrders() }, [])
 
   const fetchOrders = async () => {
     try {
@@ -42,131 +40,131 @@ function AdminOrdersPage() {
     }
   }
 
-  const getStatusBadge = (status) => {
-    const styles = {
-      pending:   { background: "#2a2a1a", color: "#C6A75E", border: "0.5px solid #C6A75E55" },
-      paid:      { background: "#0d2a1a", color: "#4caf7d", border: "0.5px solid #4caf7d55" },
-      cancelled: { background: "#2a1a1a", color: "#e06c6c", border: "0.5px solid #e06c6c55" },
-    }
-    const s = styles[status] || styles.pending
-    return (
-      <span style={{ ...s, fontSize: "12px", padding: "3px 10px", borderRadius: "20px" }}>
-        {status}
-      </span>
-    )
-  }
-
-  const getPaymentBadge = (status) => {
-    const styles = {
-      pending:  { background: "#2a2a1a", color: "#C6A75E", border: "0.5px solid #C6A75E55" },
-      approved: { background: "#0d2a1a", color: "#4caf7d", border: "0.5px solid #4caf7d55" },
-      failed:   { background: "#2a1a1a", color: "#e06c6c", border: "0.5px solid #e06c6c55" },
-    }
-    const s = styles[status] || styles.pending
-    return (
-      <span style={{ ...s, fontSize: "12px", padding: "3px 10px", borderRadius: "20px" }}>
-        {status}
-      </span>
-    )
-  }
-
   const handleDelete = async (orderId) => {
-  if (!confirm("Yakin ingin menghapus order ini?")) return
-  try {
-    const token = localStorage.getItem("token")
-    await axios.delete(`http://localhost:3000/admin/orders/${orderId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    fetchOrders()
-  } catch (err) {
-    alert(err.response?.data?.message || "Gagal menghapus order")
+    if (!confirm("Yakin ingin menghapus order ini?")) return
+    try {
+      const token = localStorage.getItem("token")
+      await axios.delete(`http://localhost:3000/admin/orders/${orderId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      fetchOrders()
+    } catch (err) {
+      alert(err.response?.data?.message || "Gagal menghapus order")
+    }
   }
-}
+
+  const formatDate = (d) => new Date(d).toLocaleDateString("id-ID", {
+    day: "numeric", month: "short", year: "numeric"
+  })
+
+  const statusBadge = (status, type = "order") => {
+    const map = type === "order"
+      ? {
+          pending:   { bg: "rgba(198,167,94,0.1)", color: "#C6A75E", border: "rgba(198,167,94,0.3)" },
+          paid:      { bg: "rgba(74,222,128,0.1)", color: "#4ade80", border: "rgba(74,222,128,0.3)" },
+          cancelled: { bg: "rgba(248,113,113,0.1)", color: "#f87171", border: "rgba(248,113,113,0.3)" },
+        }
+      : {
+          pending:  { bg: "rgba(198,167,94,0.1)", color: "#C6A75E", border: "rgba(198,167,94,0.3)" },
+          approved: { bg: "rgba(74,222,128,0.1)", color: "#4ade80", border: "rgba(74,222,128,0.3)" },
+          failed:   { bg: "rgba(248,113,113,0.1)", color: "#f87171", border: "rgba(248,113,113,0.3)" },
+        }
+    const s = map[status] || map.pending
+    return (
+      <span style={{ fontSize: "11px", padding: "3px 10px", borderRadius: "20px", background: s.bg, color: s.color, border: `0.5px solid ${s.border}`, letterSpacing: "0.04em", textTransform: "capitalize", fontWeight: "500", whiteSpace: "nowrap" }}>
+        {status}
+      </span>
+    )
+  }
+
+  const navItems = [
+    { label: "Dashboard", path: "/admin" },
+    { label: "Orders", path: "/admin/orders" },
+    { label: "Customers", path: "/admin/customers" },
+    { label: "VIP Guests", path: "/admin/vip-guests" },
+    { label: "Reports", path: "/admin/reports" },
+  ]
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "#0F1C2E", fontFamily: "sans-serif" }}>
+    <div style={{ display: "flex", minHeight: "100vh", background: "#0F1C2E", fontFamily: "'Segoe UI', sans-serif", color: "#E8DFD2" }}>
 
       {/* SIDEBAR */}
-      <div style={{ width: "220px", background: "#1a2d42", borderRight: "0.5px solid #2E4057", padding: "32px 20px", display: "flex", flexDirection: "column", justifyContent: "space-between", flexShrink: 0 }}>
-        <div>
-          <h2 style={{ color: "#C6A75E", fontSize: "20px", fontWeight: 500, margin: "0 0 40px" }}>VIP Admin</h2>
-          {[
-            { label: "Dashboard", path: "/admin" },
-            { label: "Orders", path: "/admin/orders" },
-            { label: "Customers", path: "/admin/customers" },
-            { label: "VIP Guests", path: "/admin/vip-guests" },
-            { label: "Reports", path: "/admin/reports" },
-          ].map(({ label, path }) => (
-            <p key={label} onClick={() => navigate(path)} style={{
-              color: window.location.pathname === path ? "#C6A75E" : "#E8DFD2",
-              fontSize: "14px", cursor: "pointer", padding: "10px 12px",
-              borderRadius: "8px", margin: "2px 0",
-              background: window.location.pathname === path ? "#0F1C2E" : "transparent",
-            }}>
-              {label}
-            </p>
-          ))}
+      <div style={{ width: "220px", flexShrink: 0, background: "#0a1628", borderRight: "0.5px solid rgba(198,167,94,0.15)", display: "flex", flexDirection: "column", padding: "2rem 0", position: "sticky", top: 0, height: "100vh" }}>
+        <div style={{ padding: "0 1.5rem 2rem" }}>
+          <span style={{ fontFamily: "Georgia, serif", fontSize: "20px", fontWeight: "600", color: "#C6A75E" }}>VIP Admin</span>
         </div>
-        <button onClick={() => { localStorage.removeItem("token"); navigate("/") }}
-          style={{ background: "transparent", color: "#9baab8", border: "0.5px solid #2E4057", borderRadius: "8px", padding: "10px", cursor: "pointer", fontSize: "13px" }}>
-          Logout
-        </button>
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px", padding: "0 0.75rem", marginBottom: "2rem" }}>
+          {navItems.map((item) => {
+            const isActive = window.location.pathname === item.path
+            return (
+              <div key={item.path} onClick={() => navigate(item.path)} style={{ padding: "10px 12px", borderRadius: "8px", fontSize: "13px", fontWeight: isActive ? "500" : "400", color: isActive ? "#C6A75E" : "rgba(232,223,210,0.55)", background: isActive ? "rgba(198,167,94,0.1)" : "transparent", cursor: "pointer" }}>
+                {item.label}
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ padding: "0 0.75rem", marginTop: "auto" }}>
+          <button onClick={() => { localStorage.removeItem("token"); navigate("/") }}
+            style={{ width: "100%", padding: "10px", border: "0.5px solid rgba(198,167,94,0.4)", borderRadius: "8px", background: "transparent", color: "#C6A75E", fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}>
+            Logout
+          </button>
+        </div>
       </div>
 
       {/* MAIN */}
-      <div style={{ flex: 1, padding: "40px", background: "#0F1C2E" }}>
-        <h2 style={{ color: "#E8DFD2", fontSize: "22px", fontWeight: 500, margin: "0 0 24px" }}>Daftar Orders</h2>
+      <div style={{ flex: 1, padding: "2.5rem", overflowX: "auto" }}>
+        <div style={{ marginBottom: "2rem" }}>
+          <p style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#C6A75E", margin: "0 0 0.3rem", fontWeight: "500" }}>Manajemen</p>
+          <h1 style={{ fontFamily: "Georgia, serif", fontSize: "28px", fontWeight: "500", color: "#F5F2EC", margin: 0 }}>Daftar Orders</h1>
+        </div>
 
-        <div style={{ border: "0.5px solid #2E4057", borderRadius: "12px", overflow: "hidden" }}>
+        <div style={{ background: "rgba(232,223,210,0.03)", border: "0.5px solid rgba(198,167,94,0.15)", borderRadius: "12px", overflow: "hidden" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
             <thead>
-              <tr style={{ background: "#1a2d42", borderBottom: "0.5px solid #2E4057" }}>
+              <tr style={{ borderBottom: "0.5px solid rgba(198,167,94,0.2)" }}>
                 {["#", "Customer", "Event", "Paket", "Total", "Tanggal", "Status Order", "Status Bayar", "Aksi"].map(h => (
-                  <th key={h} style={{ padding: "14px 16px", color: "#0F1C2E", fontWeight: 500, textAlign: "left" }}>{h}</th>
+                  <th key={h} style={{ padding: "14px 16px", color: "#C6A75E", fontWeight: "500", textAlign: "left", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase" }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {orders.length === 0 ? (
-                <tr style={{ background: "#0F1C2E" }}>
-                  <td colSpan={9} style={{ padding: "24px", textAlign: "center", color: "#9baab8" }}>Belum ada order</td>
+                <tr>
+                  <td colSpan={9} style={{ padding: "2rem", textAlign: "center", color: "rgba(232,223,210,0.35)", fontSize: "13px" }}>Belum ada order</td>
                 </tr>
               ) : (
                 orders.map((order, i) => (
-                  <tr key={order.id} style={{
-                    borderBottom: "0.5px solid #2E405755",
-                    background: "#0F1C2E",
-                  }}>
-                    <td style={{ padding: "14px 16px", color: "#E8DFD2" }}>{i + 1}</td>
+                  <tr key={order.id} style={{ borderBottom: "0.5px solid rgba(198,167,94,0.07)" }}>
+                    <td style={{ padding: "14px 16px", color: "rgba(232,223,210,0.4)", fontSize: "12px" }}>{i + 1}</td>
                     <td style={{ padding: "14px 16px" }}>
-                      <div style={{ color: "#E8DFD2" }}>{order.Customer?.name}</div>
+                      <div style={{ color: "#E8DFD2", fontWeight: "500" }}>{order.Customer?.name}</div>
                       <div style={{ color: "#C6A75E", fontSize: "11px" }}>{order.Customer?.email}</div>
                     </td>
                     <td style={{ padding: "14px 16px", color: "#E8DFD2" }}>{order.event_name}</td>
-                    <td style={{ padding: "14px 16px", color: "#E8DFD2" }}>{order.Package?.name}</td>
-                    <td style={{ padding: "14px 16px", color: "#C6A75E" }}>Rp {Number(order.total_amount).toLocaleString("id-ID")}</td>
-                    <td style={{ padding: "14px 16px", color: "#E8DFD2" }}>{order.event_date}</td>
-                    <td style={{ padding: "14px 16px" }}>{getStatusBadge(order.status)}</td>
+                    <td style={{ padding: "14px 16px", color: "rgba(232,223,210,0.7)" }}>{order.Package?.name}</td>
+                    <td style={{ padding: "14px 16px", color: "#C6A75E", fontWeight: "500" }}>Rp {Number(order.total_amount).toLocaleString("id-ID")}</td>
+                    <td style={{ padding: "14px 16px", color: "rgba(232,223,210,0.7)" }}>{formatDate(order.event_date)}</td>
+                    <td style={{ padding: "14px 16px" }}>{statusBadge(order.status, "order")}</td>
                     <td style={{ padding: "14px 16px" }}>
                       {order.Payment
-                        ? getPaymentBadge(order.Payment.payment_status)
-                        : <span style={{ color: "#E8DFD2", fontSize: "12px" }}>Belum bayar</span>
+                        ? statusBadge(order.Payment.payment_status, "payment")
+                        : <span style={{ color: "rgba(232,223,210,0.3)", fontSize: "12px" }}>Belum bayar</span>
                       }
                     </td>
                     <td style={{ padding: "14px 16px" }}>
-                        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                          {order.Payment && order.Payment.payment_status === "pending" && (
-                            <button onClick={() => setSelectedOrder(order)}
-                              style={{ background: "#C6A75E", color: "#0F1C2E", border: "none", borderRadius: "6px", padding: "6px 14px", fontSize: "12px", cursor: "pointer", fontWeight: 500 }}>
-                              Verifikasi
-                            </button>
-                          )}
-                          <button onClick={() => handleDelete(order.id)}
-                            style={{ background: "transparent", color: "#e06c6c", border: "0.5px solid #e06c6c55", borderRadius: "6px", padding: "6px 10px", fontSize: "14px", cursor: "pointer" }}>
-                            🗑
+                      <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+                        {order.Payment && order.Payment.payment_status === "pending" && (
+                          <button onClick={() => setSelectedOrder(order)}
+                            style={{ background: "#C6A75E", color: "#0F1C2E", border: "none", borderRadius: "6px", padding: "6px 12px", fontSize: "11px", fontWeight: "600", cursor: "pointer", letterSpacing: "0.04em", whiteSpace: "nowrap" }}>
+                            Verifikasi
                           </button>
-                        </div>
-                      </td>
+                        )}
+                        <button onClick={() => handleDelete(order.id)}
+                          style={{ background: "transparent", color: "#f87171", border: "0.5px solid rgba(248,113,113,0.3)", borderRadius: "6px", padding: "6px 10px", fontSize: "12px", cursor: "pointer" }}>
+                          ✕
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                 ))
               )}
@@ -175,13 +173,16 @@ function AdminOrdersPage() {
         </div>
       </div>
 
-      {/* POPUP MODAL */}
+      {/* MODAL VERIFIKASI */}
       {selectedOrder && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 999 }}>
-          <div style={{ background: "#1a2d42", border: "0.5px solid #2E4057", borderRadius: "16px", padding: "32px", width: "440px" }}>
-            <h3 style={{ color: "#E8DFD2", fontSize: "18px", fontWeight: 500, margin: "0 0 20px" }}>Verifikasi Pembayaran</h3>
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 999 }}>
+          <div style={{ background: "#0F1C2E", border: "0.5px solid rgba(198,167,94,0.25)", borderRadius: "16px", padding: "2rem", width: "440px", position: "relative" }}>
+            <div style={{ position: "absolute", top: 0, left: "20%", right: "20%", height: "1px", background: "linear-gradient(90deg, transparent, rgba(198,167,94,0.4), transparent)" }} />
 
-            <div style={{ background: "#0F1C2E", borderRadius: "10px", padding: "16px", marginBottom: "20px" }}>
+            <p style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#C6A75E", margin: "0 0 0.3rem", fontWeight: "500" }}>Verifikasi</p>
+            <h3 style={{ fontFamily: "Georgia, serif", fontSize: "20px", fontWeight: "500", color: "#F5F2EC", margin: "0 0 1.5rem" }}>Konfirmasi Pembayaran</h3>
+
+            <div style={{ background: "rgba(232,223,210,0.04)", border: "0.5px solid rgba(198,167,94,0.15)", borderRadius: "10px", padding: "1.2rem", marginBottom: "1.2rem" }}>
               {[
                 ["Customer", selectedOrder.Customer?.name],
                 ["Event", selectedOrder.event_name],
@@ -189,15 +190,15 @@ function AdminOrdersPage() {
                 ["Total", `Rp ${Number(selectedOrder.total_amount).toLocaleString("id-ID")}`],
               ].map(([label, val]) => (
                 <div key={label} style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", marginBottom: "8px" }}>
-                  <span style={{ color: "#9baab8" }}>{label}</span>
-                  <span style={{ color: "#E8DFD2", fontWeight: 500 }}>{val}</span>
+                  <span style={{ color: "rgba(232,223,210,0.45)" }}>{label}</span>
+                  <span style={{ color: "#E8DFD2", fontWeight: "500" }}>{val}</span>
                 </div>
               ))}
             </div>
 
             {selectedOrder.Payment?.proof_path && (
-              <div style={{ marginBottom: "20px" }}>
-                <p style={{ color: "#9baab8", fontSize: "12px", margin: "0 0 8px" }}>Bukti Transfer</p>
+              <div style={{ marginBottom: "1.2rem" }}>
+                <p style={{ fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#C6A75E", fontWeight: "500", margin: "0 0 8px" }}>Bukti Transfer</p>
                 <img
                   src={`http://localhost:3000/${selectedOrder.Payment.proof_path.replace(/\\/g, "/")}`}
                   alt="bukti"
@@ -206,17 +207,17 @@ function AdminOrdersPage() {
               </div>
             )}
 
-            <div style={{ display: "flex", gap: "10px" }}>
+            <div style={{ display: "flex", gap: "8px" }}>
               <button onClick={() => handleVerify(selectedOrder.Payment.id, "approved")} disabled={loadingAction}
-                style={{ flex: 1, background: "#4caf7d", color: "#fff", border: "none", borderRadius: "8px", padding: "12px", fontSize: "13px", fontWeight: 500, cursor: "pointer" }}>
-                ✓ Approve
+                style={{ flex: 1, background: "rgba(74,222,128,0.15)", color: "#4ade80", border: "0.5px solid rgba(74,222,128,0.3)", borderRadius: "8px", padding: "12px", fontSize: "12px", fontWeight: "600", cursor: "pointer", letterSpacing: "0.06em" }}>
+                Approve
               </button>
               <button onClick={() => handleVerify(selectedOrder.Payment.id, "failed")} disabled={loadingAction}
-                style={{ flex: 1, background: "#e06c6c", color: "#fff", border: "none", borderRadius: "8px", padding: "12px", fontSize: "13px", fontWeight: 500, cursor: "pointer" }}>
-                ✗ Deny
+                style={{ flex: 1, background: "rgba(248,113,113,0.15)", color: "#f87171", border: "0.5px solid rgba(248,113,113,0.3)", borderRadius: "8px", padding: "12px", fontSize: "12px", fontWeight: "600", cursor: "pointer", letterSpacing: "0.06em" }}>
+                Deny
               </button>
               <button onClick={() => setSelectedOrder(null)}
-                style={{ background: "transparent", color: "#9baab8", border: "0.5px solid #2E4057", borderRadius: "8px", padding: "12px 16px", fontSize: "13px", cursor: "pointer" }}>
+                style={{ background: "transparent", color: "rgba(232,223,210,0.4)", border: "0.5px solid rgba(232,223,210,0.15)", borderRadius: "8px", padding: "12px 16px", fontSize: "12px", cursor: "pointer" }}>
                 Batal
               </button>
             </div>
